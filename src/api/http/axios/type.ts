@@ -20,7 +20,7 @@ export abstract class RequstInterceptors {
 }
 
 // ** 定義返回類型
-export interface Respones<T = any> {
+export interface Response<T = any> {
   success: boolean;
   result: T
 }
