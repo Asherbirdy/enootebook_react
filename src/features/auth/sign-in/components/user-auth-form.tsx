@@ -1,23 +1,18 @@
-import { HTMLAttributes, useState } from 'react'
+import { HTMLAttributes } from 'react'
 import { z } from 'zod'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Link } from '@tanstack/react-router'
-import { IconBrandFacebook, IconBrandGithub } from '@tabler/icons-react'
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form'
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { PasswordInput } from '@/components/password-input'
 import { useMutation } from '@tanstack/react-query'
 import { useAuthApi } from '@/api'
+import { Cookie } from '@/lib/cookie'
+import { CookieEnum } from '@/enum'
+import { LoginResponse } from '@/types'
 
 type UserAuthFormProps = HTMLAttributes<HTMLFormElement>
 
@@ -36,7 +31,6 @@ const formSchema = z.object({
 })
 
 export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
-  const [isLoading, setIsLoading] = useState(false)
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -46,7 +40,10 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
     },
   })
 
-  const { mutate: signIn } = useMutation({
+  const {
+    mutate: SignInRequest,
+    isPending: SignInRequestPending,
+  } = useMutation<LoginResponse, Error, z.infer<typeof formSchema>>({
     mutationFn: async (data: z.infer<typeof formSchema>) => {
       const response = await useAuthApi.login({
         name: data.username,
@@ -57,15 +54,13 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
   })
 
   function onSubmit(data: z.infer<typeof formSchema>) {
-    setIsLoading(true)
-    signIn(data, {
+    SignInRequest(data, {
       onSuccess: (data) => {
-        console.log('success', data)
-        setIsLoading(false)
+        Cookie.set(CookieEnum.AccessToken, data.token.accessTokenJWT)
+        Cookie.set(CookieEnum.RefreshToken, data.token.refreshTokenJWT)
       },
       onError: () => {
-        console.log('error')
-        setIsLoading(false)
+        console.error('error')
       },
     })
   }
@@ -117,7 +112,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
         />
         <Button
           className="mt-2"
-          disabled={isLoading}
+          disabled={SignInRequestPending}
         >
           Login
         </Button>
