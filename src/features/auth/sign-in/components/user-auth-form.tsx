@@ -16,6 +16,8 @@ import {
 } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { PasswordInput } from '@/components/password-input'
+import { useMutation } from '@tanstack/react-query'
+import { useAuthApi } from '@/api'
 
 type UserAuthFormProps = HTMLAttributes<HTMLFormElement>
 
@@ -44,14 +46,28 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
     },
   })
 
+  const { mutate: signIn } = useMutation({
+    mutationFn: async (data: z.infer<typeof formSchema>) => {
+      const response = await useAuthApi.login({
+        name: data.username,
+        password: data.password,
+      })
+      return response
+    },
+  })
+
   function onSubmit(data: z.infer<typeof formSchema>) {
     setIsLoading(true)
-    // eslint-disable-next-line no-console
-    console.log(data)
-
-    setTimeout(() => {
-      setIsLoading(false)
-    }, 3000)
+    signIn(data, {
+      onSuccess: (data) => {
+        console.log('success', data)
+        setIsLoading(false)
+      },
+      onError: () => {
+        console.log('error')
+        setIsLoading(false)
+      },
+    })
   }
 
   return (
