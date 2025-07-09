@@ -5,7 +5,7 @@ import {
   IconPackages,
   IconUsers,
 } from '@tabler/icons-react'
-import {  Command, GalleryVerticalEnd } from 'lucide-react'
+import { Command } from 'lucide-react'
 import { ClerkLogo } from '@/assets/clerk-logo'
 import { type SidebarData } from '../types'
 
