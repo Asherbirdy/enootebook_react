@@ -21,7 +21,8 @@ const queryClient = new QueryClient({
     queries: {
       retry: (failureCount, error) => {
         // eslint-disable-next-line no-console
-        if (import.meta.env.DEV) console.log({ failureCount, error })
+        if (import.meta.env.DEV) console.log({ failureCount,
+          error })
 
         if (failureCount >= 0 && import.meta.env.DEV) return false
         if (failureCount > 3 && import.meta.env.PROD) return false
@@ -53,7 +54,8 @@ const queryClient = new QueryClient({
           toast.error('Session expired!')
           useAuthStore.getState().auth.reset()
           const redirect = `${router.history.location.href}`
-          router.navigate({ to: '/sign-in', search: { redirect } })
+          router.navigate({ to: '/sign-in',
+            search: { redirect } })
         }
         if (error.response?.status === 500) {
           toast.error('Internal Server Error!')
@@ -89,12 +91,15 @@ if (!rootElement.innerHTML) {
   root.render(
     <StrictMode>
       <QueryClientProvider client={queryClient}>
-        <ThemeProvider defaultTheme='light' storageKey='vite-ui-theme'>
+        <ThemeProvider
+          defaultTheme="light"
+          storageKey="vite-ui-theme"
+        >
           <FontProvider>
             <RouterProvider router={router} />
           </FontProvider>
         </ThemeProvider>
       </QueryClientProvider>
-    </StrictMode>
+    </StrictMode>,
   )
 }

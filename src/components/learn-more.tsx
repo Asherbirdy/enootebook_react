@@ -26,14 +26,17 @@ export function LearnMore({
         {...triggerProps}
         className={cn('size-5 rounded-full', triggerProps?.className)}
       >
-        <Button variant='outline' size='icon'>
-          <span className='sr-only'>Learn more</span>
-          <IconQuestionMark className='size-3' />
+        <Button
+          variant="outline"
+          size="icon"
+        >
+          <span className="sr-only">Learn more</span>
+          <IconQuestionMark className="size-3" />
         </Button>
       </PopoverTrigger>
       <PopoverContent
-        side='top'
-        align='start'
+        side="top"
+        align="start"
         {...contentProps}
         className={cn('text-muted-foreground text-sm', contentProps?.className)}
       >

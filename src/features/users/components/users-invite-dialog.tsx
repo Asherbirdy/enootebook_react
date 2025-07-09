@@ -44,7 +44,9 @@ interface Props {
 export function UsersInviteDialog({ open, onOpenChange }: Props) {
   const form = useForm<UserInviteForm>({
     resolver: zodResolver(formSchema),
-    defaultValues: { email: '', role: '', desc: '' },
+    defaultValues: { email: '',
+      role: '',
+      desc: '' },
   })
 
   const onSubmit = (values: UserInviteForm) => {
@@ -61,10 +63,12 @@ export function UsersInviteDialog({ open, onOpenChange }: Props) {
         onOpenChange(state)
       }}
     >
-      <DialogContent className='sm:max-w-md'>
-        <DialogHeader className='text-left'>
-          <DialogTitle className='flex items-center gap-2'>
-            <IconMailPlus /> Invite User
+      <DialogContent className="sm:max-w-md">
+        <DialogHeader className="text-left">
+          <DialogTitle className="flex items-center gap-2">
+            <IconMailPlus />
+            {' '}
+            Invite User
           </DialogTitle>
           <DialogDescription>
             Invite new user to join your team by sending them an email
@@ -73,20 +77,20 @@ export function UsersInviteDialog({ open, onOpenChange }: Props) {
         </DialogHeader>
         <Form {...form}>
           <form
-            id='user-invite-form'
+            id="user-invite-form"
             onSubmit={form.handleSubmit(onSubmit)}
-            className='space-y-4'
+            className="space-y-4"
           >
             <FormField
               control={form.control}
-              name='email'
+              name="email"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Email</FormLabel>
                   <FormControl>
                     <Input
-                      type='email'
-                      placeholder='eg: john.doe@gmail.com'
+                      type="email"
+                      placeholder="eg: john.doe@gmail.com"
                       {...field}
                     />
                   </FormControl>
@@ -96,14 +100,14 @@ export function UsersInviteDialog({ open, onOpenChange }: Props) {
             />
             <FormField
               control={form.control}
-              name='role'
+              name="role"
               render={({ field }) => (
-                <FormItem className='space-y-1'>
+                <FormItem className="space-y-1">
                   <FormLabel>Role</FormLabel>
                   <SelectDropdown
                     defaultValue={field.value}
                     onValueChange={field.onChange}
-                    placeholder='Select a role'
+                    placeholder="Select a role"
                     items={userTypes.map(({ label, value }) => ({
                       label,
                       value,
@@ -115,14 +119,14 @@ export function UsersInviteDialog({ open, onOpenChange }: Props) {
             />
             <FormField
               control={form.control}
-              name='desc'
+              name="desc"
               render={({ field }) => (
-                <FormItem className=''>
+                <FormItem className="">
                   <FormLabel>Description (optional)</FormLabel>
                   <FormControl>
                     <Textarea
-                      className='resize-none'
-                      placeholder='Add a personal note to your invitation (optional)'
+                      className="resize-none"
+                      placeholder="Add a personal note to your invitation (optional)"
                       {...field}
                     />
                   </FormControl>
@@ -132,12 +136,17 @@ export function UsersInviteDialog({ open, onOpenChange }: Props) {
             />
           </form>
         </Form>
-        <DialogFooter className='gap-y-2'>
+        <DialogFooter className="gap-y-2">
           <DialogClose asChild>
-            <Button variant='outline'>Cancel</Button>
+            <Button variant="outline">Cancel</Button>
           </DialogClose>
-          <Button type='submit' form='user-invite-form'>
-            Invite <IconSend />
+          <Button
+            type="submit"
+            form="user-invite-form"
+          >
+            Invite
+            {' '}
+            <IconSend />
           </Button>
         </DialogFooter>
       </DialogContent>

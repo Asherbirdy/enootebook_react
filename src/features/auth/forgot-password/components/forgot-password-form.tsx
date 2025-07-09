@@ -50,18 +50,24 @@ export function ForgotPasswordForm({ className, ...props }: ForgotFormProps) {
       >
         <FormField
           control={form.control}
-          name='email'
+          name="email"
           render={({ field }) => (
-            <FormItem className='space-y-1'>
+            <FormItem className="space-y-1">
               <FormLabel>Email</FormLabel>
               <FormControl>
-                <Input placeholder='name@example.com' {...field} />
+                <Input
+                  placeholder="name@example.com"
+                  {...field}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
-        <Button className='mt-2' disabled={isLoading}>
+        <Button
+          className="mt-2"
+          disabled={isLoading}
+        >
           Continue
         </Button>
       </form>
