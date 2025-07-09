@@ -21,6 +21,7 @@ import { Search } from '@/components/search'
 import { ThemeSwitch } from '@/components/theme-switch'
 import { apps } from './data/apps'
 
+
 const appText = new Map<string, string>([
   ['all', 'All Apps'],
   ['connected', 'Connected'],

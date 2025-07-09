@@ -10,7 +10,8 @@
     "preview": "vite preview",
     "format:check": "prettier --check .",
     "format": "prettier --write .",
-    "knip": "knip"
+    "knip": "knip",
+    "type-check": "tsc -b"
   },
   "dependencies": {
     "@clerk/clerk-react": "^5.32.1",
@@ -58,8 +59,13 @@
     "zod": "^3.25.67",
     "zustand": "^5.0.5"
   },
-  "devDependencies": {
-    "@eslint/js": "^9.29.0",
+  "devDependencies": {    
+    "@typescript-eslint/eslint-plugin": "^6.20.0",
+    "@typescript-eslint/parser": "^7.2.0",
+    "eslint": "^8.57.0",
+    "eslint-plugin-react": "^7.34.0",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.4.5",
     "@faker-js/faker": "^9.8.0",
     "@tanstack/eslint-plugin-query": "^5.81.2",
     "@tanstack/react-query-devtools": "^5.81.2",
@@ -71,9 +77,6 @@
     "@types/react": "^19.1.8",
     "@types/react-dom": "^19.1.6",
     "@vitejs/plugin-react-swc": "^3.10.2",
-    "eslint": "^9.29.0",
-    "eslint-plugin-react-hooks": "^5.2.0",
-    "eslint-plugin-react-refresh": "^0.4.20",
     "globals": "^16.2.0",
     "knip": "^5.61.2",
     "prettier": "^3.6.0",
