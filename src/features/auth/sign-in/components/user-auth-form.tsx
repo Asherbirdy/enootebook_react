@@ -2,7 +2,7 @@ import { HTMLAttributes } from 'react'
 import { z } from 'zod'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Link } from '@tanstack/react-router'
+import { Link, useNavigate } from '@tanstack/react-router'
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
@@ -31,6 +31,7 @@ const formSchema = z.object({
 })
 
 export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
+  const navigate = useNavigate()
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -58,6 +59,8 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
       onSuccess: (data) => {
         Cookie.set(CookieEnum.AccessToken, data.token.accessTokenJWT)
         Cookie.set(CookieEnum.RefreshToken, data.token.refreshTokenJWT)
+
+        navigate({ to: '/' })
       },
       onError: () => {
         console.error('error')
