@@ -37,18 +37,24 @@ export default function LongText({
 
   if (!isOverflown)
     return (
-      <div ref={ref} className={cn('truncate', className)}>
+      <div
+        ref={ref}
+        className={cn('truncate', className)}
+      >
         {children}
       </div>
     )
 
   return (
     <>
-      <div className='hidden sm:block'>
+      <div className="hidden sm:block">
         <TooltipProvider delayDuration={0}>
           <Tooltip>
             <TooltipTrigger asChild>
-              <div ref={ref} className={cn('truncate', className)}>
+              <div
+                ref={ref}
+                className={cn('truncate', className)}
+              >
                 {children}
               </div>
             </TooltipTrigger>
@@ -58,10 +64,13 @@ export default function LongText({
           </Tooltip>
         </TooltipProvider>
       </div>
-      <div className='sm:hidden'>
+      <div className="sm:hidden">
         <Popover>
           <PopoverTrigger asChild>
-            <div ref={ref} className={cn('truncate', className)}>
+            <div
+              ref={ref}
+              className={cn('truncate', className)}
+            >
               {children}
             </div>
           </PopoverTrigger>

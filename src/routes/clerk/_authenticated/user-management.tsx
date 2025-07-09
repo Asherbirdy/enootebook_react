@@ -32,8 +32,8 @@ function UserManagement() {
 
   if (!isLoaded) {
     return (
-      <div className='flex h-svh items-center justify-center'>
-        <IconLoader2 className='size-8 animate-spin' />
+      <div className="flex h-svh items-center justify-center">
+        <IconLoader2 className="size-8 animate-spin" />
       </div>
     )
   }
@@ -50,18 +50,18 @@ function UserManagement() {
         <UsersProvider>
           <Header fixed>
             <Search />
-            <div className='ml-auto flex items-center space-x-4'>
+            <div className="ml-auto flex items-center space-x-4">
               <ThemeSwitch />
               <UserButton />
             </div>
           </Header>
 
           <Main>
-            <div className='mb-2 flex flex-wrap items-center justify-between space-y-2'>
+            <div className="mb-2 flex flex-wrap items-center justify-between space-y-2">
               <div>
-                <h2 className='text-2xl font-bold tracking-tight'>User List</h2>
-                <div className='flex gap-1'>
-                  <p className='text-muted-foreground'>
+                <h2 className="text-2xl font-bold tracking-tight">User List</h2>
+                <div className="flex gap-1">
+                  <p className="text-muted-foreground">
                     Manage your users and their roles here.
                   </p>
                   <LearnMore
@@ -70,27 +70,31 @@ function UserManagement() {
                     contentProps={{ side: 'right' }}
                   >
                     <p>
-                      This is the same as{' '}
+                      This is the same as
+                      {' '}
                       <Link
-                        to='/users'
-                        className='text-blue-500 underline decoration-dashed underline-offset-2'
+                        to="/users"
+                        className="text-blue-500 underline decoration-dashed underline-offset-2"
                       >
                         '/users'
                       </Link>
                     </p>
 
-                    <p className='mt-4'>
+                    <p className="mt-4">
                       You can sign out or manage/delete your account via the
                       User Profile menu in the top-right corner of the page.
-                      <IconArrowUpRight className='inline-block size-4' />
+                      <IconArrowUpRight className="inline-block size-4" />
                     </p>
                   </LearnMore>
                 </div>
               </div>
               <UsersPrimaryButtons />
             </div>
-            <div className='-mx-4 flex-1 overflow-auto px-4 py-1 lg:flex-row lg:space-y-0 lg:space-x-12'>
-              <UsersTable data={userList} columns={columns} />
+            <div className="-mx-4 flex-1 overflow-auto px-4 py-1 lg:flex-row lg:space-y-0 lg:space-x-12">
+              <UsersTable
+                data={userList}
+                columns={columns}
+              />
             </div>
           </Main>
 
@@ -127,27 +131,33 @@ function Unauthorized() {
   }, [countdown, navigate])
 
   return (
-    <div className='h-svh'>
-      <div className='m-auto flex h-full w-full flex-col items-center justify-center gap-2'>
-        <h1 className='text-[7rem] leading-tight font-bold'>401</h1>
-        <span className='font-medium'>Unauthorized Access</span>
-        <p className='text-muted-foreground text-center'>
-          You must be authenticated via Clerk{' '}
+    <div className="h-svh">
+      <div className="m-auto flex h-full w-full flex-col items-center justify-center gap-2">
+        <h1 className="text-[7rem] leading-tight font-bold">401</h1>
+        <span className="font-medium">Unauthorized Access</span>
+        <p className="text-muted-foreground text-center">
+          You must be authenticated via Clerk
+          {' '}
           <sup>
-            <LearnMore open={opened} onOpenChange={setOpened}>
+            <LearnMore
+              open={opened}
+              onOpenChange={setOpened}
+            >
               <p>
-                This is the same as{' '}
+                This is the same as
+                {' '}
                 <Link
-                  to='/users'
-                  className='text-blue-500 underline decoration-dashed underline-offset-2'
+                  to="/users"
+                  className="text-blue-500 underline decoration-dashed underline-offset-2"
                 >
                   '/users'
                 </Link>
-                .{' '}
+                .
+                {' '}
               </p>
               <p>You must first sign in using Clerk to access this route. </p>
 
-              <p className='mt-4'>
+              <p className="mt-4">
                 After signing in, you'll be able to sign out or delete your
                 account via the User Profile dropdown on this page.
               </p>
@@ -156,15 +166,20 @@ function Unauthorized() {
           <br />
           to access this resource.
         </p>
-        <div className='mt-6 flex gap-4'>
-          <Button variant='outline' onClick={() => history.go(-1)}>
+        <div className="mt-6 flex gap-4">
+          <Button
+            variant="outline"
+            onClick={() => history.go(-1)}
+          >
             Go Back
           </Button>
           <Button onClick={() => navigate({ to: '/clerk/sign-in' })}>
-            <ClerkLogo className='invert' /> Sign in
+            <ClerkLogo className="invert" />
+            {' '}
+            Sign in
           </Button>
         </div>
-        <div className='mt-4 h-8 text-center'>
+        <div className="mt-4 h-8 text-center">
           {!cancelled && !opened && (
             <>
               <p>
@@ -172,7 +187,10 @@ function Unauthorized() {
                   ? `Redirecting to Sign In page in ${countdown}s`
                   : `Redirecting...`}
               </p>
-              <Button variant='link' onClick={() => setCancelled(true)}>
+              <Button
+                variant="link"
+                onClick={() => setCancelled(true)}
+              >
                 Cancel Redirect
               </Button>
             </>

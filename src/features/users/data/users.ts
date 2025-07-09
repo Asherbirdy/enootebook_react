@@ -8,7 +8,8 @@ export const users = Array.from({ length: 20 }, () => {
     firstName,
     lastName,
     username: faker.internet
-      .username({ firstName, lastName })
+      .username({ firstName,
+        lastName })
       .toLocaleLowerCase(),
     email: faker.internet.email({ firstName }).toLocaleLowerCase(),
     phoneNumber: faker.phone.number({ style: 'international' }),

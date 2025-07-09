@@ -13,7 +13,7 @@ export const Main = ({ fixed, className, ...props }: MainProps) => {
         'peer-[.header-fixed]/header:mt-16',
         'px-4 py-6',
         fixed && 'fixed-main flex grow flex-col overflow-hidden',
-        className
+        className,
       )}
       {...props}
     />

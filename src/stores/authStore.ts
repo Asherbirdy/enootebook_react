@@ -28,24 +28,32 @@ export const useAuthStore = create<AuthState>()((set) => {
     auth: {
       user: null,
       setUser: (user) =>
-        set((state) => ({ ...state, auth: { ...state.auth, user } })),
+        set((state) => ({ ...state,
+          auth: { ...state.auth,
+            user } })),
       accessToken: initToken,
       setAccessToken: (accessToken) =>
         set((state) => {
           Cookies.set(ACCESS_TOKEN, JSON.stringify(accessToken))
-          return { ...state, auth: { ...state.auth, accessToken } }
+          return { ...state,
+            auth: { ...state.auth,
+              accessToken } }
         }),
       resetAccessToken: () =>
         set((state) => {
           Cookies.remove(ACCESS_TOKEN)
-          return { ...state, auth: { ...state.auth, accessToken: '' } }
+          return { ...state,
+            auth: { ...state.auth,
+              accessToken: '' } }
         }),
       reset: () =>
         set((state) => {
           Cookies.remove(ACCESS_TOKEN)
           return {
             ...state,
-            auth: { ...state.auth, user: null, accessToken: '' },
+            auth: { ...state.auth,
+              user: null,
+              accessToken: '' },
           }
         }),
     },

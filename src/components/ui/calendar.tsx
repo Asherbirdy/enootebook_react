@@ -13,7 +13,7 @@ function Calendar({
     <DayPicker
       showOutsideDays={showOutsideDays}
       className={cn('p-3', className)}
-      mode='single'
+      mode="single"
       classNames={{
         months: 'flex flex-col sm:flex-row gap-2',
         month: 'flex flex-col gap-4',
@@ -23,12 +23,12 @@ function Calendar({
         button_previous: cn(
           buttonVariants({ variant: 'outline' }),
           'size-7 bg-transparent p-0 opacity-50 hover:opacity-100 z-10',
-          'absolute left-4 top-3'
+          'absolute left-4 top-3',
         ),
         button_next: cn(
           buttonVariants({ variant: 'outline' }),
           'size-7 bg-transparent p-0 opacity-50 hover:opacity-100 z-10',
-          'absolute right-4 top-3'
+          'absolute right-4 top-3',
         ),
         month_grid: 'w-full border-collapse space-x-1',
         weekdays: 'flex',
@@ -39,11 +39,11 @@ function Calendar({
           'relative p-0 text-center text-sm focus-within:relative focus-within:z-20 [&:has([aria-selected])]:bg-accent [&:has([aria-selected].day-range-end)]:rounded-r-md',
           props.mode === 'range'
             ? '[&:has(>.day-range-end)]:rounded-r-md [&:has(>.day-range-start)]:rounded-l-md first:[&:has([aria-selected])]:rounded-l-md last:[&:has([aria-selected])]:rounded-r-md'
-            : 'aria-selected:rounded-md [&[aria-selected="true"]>button]:hover:bg-foreground [&[aria-selected="true"]>button]:hover:text-background/85'
+            : 'aria-selected:rounded-md [&[aria-selected="true"]>button]:hover:bg-foreground [&[aria-selected="true"]>button]:hover:text-background/85',
         ),
         day_button: cn(
           buttonVariants({ variant: 'ghost' }),
-          'size-8 p-0 font-normal aria-selected:opacity-100'
+          'size-8 p-0 font-normal aria-selected:opacity-100',
         ),
         day_selected: 'opacity-100 bg-yellow-500',
         range_start:
