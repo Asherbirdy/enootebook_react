@@ -20,10 +20,9 @@ import { PasswordInput } from '@/components/password-input'
 type UserAuthFormProps = HTMLAttributes<HTMLFormElement>
 
 const formSchema = z.object({
-  email: z
+  username: z
     .string()
-    .min(1, { message: 'Please enter your email' })
-    .email({ message: 'Invalid email address' }),
+    .min(1, { message: 'Please enter your username' }),
   password: z
     .string()
     .min(1, {
@@ -40,7 +39,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      email: '',
+      username: '',
       password: '',
     },
   })
@@ -64,10 +63,10 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
       >
         <FormField
           control={form.control}
-          name="email"
+          name="username"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Email</FormLabel>
+              <FormLabel>Username</FormLabel>
               <FormControl>
                 <Input
                   placeholder="name@example.com"
@@ -106,7 +105,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
         >
           Login
         </Button>
-
+        {/*
         <div className="relative my-2">
           <div className="absolute inset-0 flex items-center">
             <span className="w-full border-t" />
@@ -137,7 +136,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
             {' '}
             Facebook
           </Button>
-        </div>
+        </div> */}
       </form>
     </Form>
   )
