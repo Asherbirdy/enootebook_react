@@ -2,7 +2,7 @@ import axios from 'axios'
 import AbortAxios from './AbortAxios'
 import { config } from '@/config'
 import { CookieEnum } from '@/enum'
-import { Cookie } from '@/lib/cookie'
+import { Cookie } from '@/lib'
 
 import type { AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse, InternalAxiosRequestConfig } from 'axios'
 import type { AxiosOptions, RequstInterceptors, Response } from './type'

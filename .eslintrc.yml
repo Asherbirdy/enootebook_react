@@ -7,6 +7,7 @@ extends:
   - eslint:recommended
   - plugin:@typescript-eslint/recommended
   - plugin:react-hooks/recommended
+  - plugin:@tanstack/query/recommended
 
 ignorePatterns:
   - dist
@@ -23,6 +24,7 @@ plugins:
   - react
   - '@typescript-eslint'
   - react-refresh
+  - '@tanstack/query'
 
 rules:
   react-refresh/only-export-components:
