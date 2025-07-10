@@ -1,7 +1,7 @@
 import type { KnipConfig } from 'knip'
 
 const config: KnipConfig = {
-  ignore: ['src/components/ui/**', 'src/routeTree.gen.ts'],
+  ignore: ['src/components/ui/**', 'src/routeTree.gen.ts', '/.github/**'],
   ignoreDependencies: ['tailwindcss', 'tw-animate-css'],
 }
 
