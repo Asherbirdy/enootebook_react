@@ -8,14 +8,14 @@ export interface LoginResponse {
   token: LoginToken
 }
 
-export interface LoginUser {
+interface LoginUser {
   name: string
   userId: string
   role: string
   emailVerified: boolean
 }
 
-export interface LoginToken {
+interface LoginToken {
   accessTokenJWT: string
   refreshTokenJWT: string
 }
