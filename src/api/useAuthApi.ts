@@ -13,4 +13,34 @@ export const useAuthApi = {
       url: '/auth/refreshToken',
     })
   },
+  register: (payload: any): Promise<any> => {
+    return useApiRequest.post({
+      url: '/auth/register',
+      data: payload,
+    })
+  },
+  sendOTP: (payload: any): Promise<any> => {
+    return useApiRequest.post({
+      url: '/auth/register',
+      data: payload,
+    })
+  },
+  bindOTP: (payload: any): Promise<any> => {
+    return useApiRequest.post({
+      url: '/auth/register',
+      data: payload,
+    })
+  },
+  forgetPasswordEmailOTP: (payload: any): Promise<any> => {
+    return useApiRequest.post({
+      url: '/auth/register',
+      data: payload,
+    })
+  },
+  changePasswordWithOTP: (payload: any): Promise<any> => {
+    return useApiRequest.post({
+      url: '/auth/register',
+      data: payload,
+    })
+  },
 }
