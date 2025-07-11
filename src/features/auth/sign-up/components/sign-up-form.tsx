@@ -4,16 +4,12 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form'
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { PasswordInput } from '@/components/password-input'
+import { RegisterPayload } from '@/types'
+import { useMutation } from '@tanstack/react-query'
+import { useAuthApi } from '@/api'
 
 type SignUpFormProps = HTMLAttributes<HTMLFormElement>
 
@@ -39,7 +35,6 @@ const formSchema = z
   })
 
 export function SignUpForm({ className, ...props }: SignUpFormProps) {
-  const [isLoading, setIsLoading] = useState(false)
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -49,15 +44,28 @@ export function SignUpForm({ className, ...props }: SignUpFormProps) {
       confirmPassword: '',
     },
   })
+  const {
+    mutate: RegisterRequest,
+    isPending: RegisterPending,
+  } = useMutation<any, Error, RegisterPayload>({
+    mutationFn: (data) => useAuthApi.register(data),
+  })
 
-  function onSubmit(data: z.infer<typeof formSchema>) {
-    setIsLoading(true)
-    // eslint-disable-next-line no-console
-    console.log(data)
+  const onSubmit = (data: z.infer<typeof formSchema>) => {
 
-    setTimeout(() => {
-      setIsLoading(false)
-    }, 3000)
+    const payload = {
+      name: data.email,
+      password: data.password,
+    }
+
+    RegisterRequest(payload, {
+      onSuccess: () => {
+        console.log('success')
+      },
+      onError: () => {
+        console.log('error')
+      },
+    })
   }
 
   return (
@@ -117,7 +125,7 @@ export function SignUpForm({ className, ...props }: SignUpFormProps) {
         />
         <Button
           className="mt-2"
-          disabled={isLoading}
+          disabled={RegisterPending}
         >
           Create Account
         </Button>

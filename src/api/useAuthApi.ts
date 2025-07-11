@@ -1,5 +1,5 @@
 import { useApiRequest } from '@/api/http'
-import { LoginPayload, LoginResponse } from '@/types'
+import { LoginPayload, LoginResponse, RegisterPayload, SendOTPPayload, BindOTPPayload, ForgetPasswordEmailOTPPayload, ChangePasswordWithOTPPayload, RegisterResponse } from '@/types'
 
 export const useAuthApi = {
   login: (payload: LoginPayload): Promise<LoginResponse> => {
@@ -13,33 +13,33 @@ export const useAuthApi = {
       url: '/auth/refreshToken',
     })
   },
-  register: (payload: any): Promise<any> => {
+  register: (payload: RegisterPayload): Promise<RegisterResponse> => {
     return useApiRequest.post({
       url: '/auth/register',
       data: payload,
     })
   },
-  sendOTP: (payload: any): Promise<any> => {
+  sendOTP: (payload: SendOTPPayload) => {
     return useApiRequest.post({
-      url: '/auth/register',
+      url: '/auth/sendOTP',
       data: payload,
     })
   },
-  bindOTP: (payload: any): Promise<any> => {
+  bindOTP: (payload: BindOTPPayload) => {
     return useApiRequest.post({
-      url: '/auth/register',
+      url: '/auth/bindOTPEmail',
       data: payload,
     })
   },
-  forgetPasswordEmailOTP: (payload: any): Promise<any> => {
+  forgetPasswordEmailOTP: (payload: ForgetPasswordEmailOTPPayload) => {
     return useApiRequest.post({
-      url: '/auth/register',
+      url: '/auth/forgetPasswordEmailOTP',
       data: payload,
     })
   },
-  changePasswordWithOTP: (payload: any): Promise<any> => {
+  changePasswordWithOTP: (payload: ChangePasswordWithOTPPayload) => {
     return useApiRequest.post({
-      url: '/auth/register',
+      url: '/auth/changePasswordWithOTP',
       data: payload,
     })
   },
