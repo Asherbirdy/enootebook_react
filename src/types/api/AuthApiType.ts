@@ -1,19 +1,6 @@
 import { User, Token } from '@/types'
 
 /*
-  * Login
-*/
-export interface LoginPayload {
-  name: string,
-  password: string
-}
-
-export interface LoginResponse {
-  user: User
-  token: Token
-}
-
-/*
   * Register
 */
 export interface RegisterPayload {
