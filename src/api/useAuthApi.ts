@@ -15,7 +15,7 @@ export const useAuthApi = {
   },
   register: (payload: RegisterPayload): Promise<RegisterResponse> => {
     return useApiRequest.post({
-      url: '/auth/register',
+      url: '/auth/userRegister',
       data: payload,
     })
   },

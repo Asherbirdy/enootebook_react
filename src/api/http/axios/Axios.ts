@@ -1,11 +1,12 @@
 import axios from 'axios'
 import AbortAxios from './AbortAxios'
 import { config } from '@/config'
-import { CookieEnum } from '@/enum'
+import { CookieEnum, PublicRequestEnum } from '@/enum'
 import { Cookie } from '@/lib'
 
 import type { AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse, InternalAxiosRequestConfig } from 'axios'
 import type { AxiosOptions, RequstInterceptors, Response } from './type'
+
 class Axios {
   private axiosInstance: AxiosInstance
   private options: AxiosOptions
@@ -86,8 +87,12 @@ class Axios {
 
         let token = Cookie.get(CookieEnum.AccessToken)
 
+        // 不需要 RefreshToken的 api 就不需要 Token
+        const isPublicRoutes = Object.values(PublicRequestEnum).includes(config.url as PublicRequestEnum)
+
         // 如果沒有 accessToken
-        if (!token) {
+        if (!token && !isPublicRoutes) {
+          console.log('isPublicRoutw')
           // 嘗試刷新 token
           const refreshed = await this.refreshTokenIfNeeded()
           if (!refreshed) {
@@ -120,7 +125,9 @@ class Axios {
     this.axiosInstance.interceptors.response.use(
       (res: AxiosResponse) => {
         // 取消請求
-        res && abortAxios.removePending(res.config)
+        if (res?.config) {
+          abortAxios.removePending(res.config)
+        }
 
         // 如果存在請求攔截器,則將 config 先交給 requestInterceptors 做對應的配置
         if (responseInterceptor) {
