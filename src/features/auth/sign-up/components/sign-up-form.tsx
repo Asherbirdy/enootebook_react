@@ -12,15 +12,16 @@ import { PasswordInput } from '@/components/password-input'
 import { RegisterPayload, RegisterResponse } from '@/types'
 import { useMutation } from '@tanstack/react-query'
 import { useAuthApi } from '@/api'
+import { Cookie } from '@/lib/cookie'
+import { CookieEnum } from '@/enum'
 
 type SignUpFormProps = HTMLAttributes<HTMLFormElement>
 
 const formSchema = z
   .object({
-    email: z
+    name: z
       .string()
-      .min(1, { message: 'Please enter your email' })
-      .email({ message: 'Invalid email address' }),
+      .min(1, { message: 'Please enter your name' }),
     password: z
       .string()
       .min(1, {
@@ -42,7 +43,7 @@ export function SignUpForm({ className, ...props }: SignUpFormProps) {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      email: '',
+      name: '',
       password: '',
       confirmPassword: '',
     },
@@ -56,21 +57,19 @@ export function SignUpForm({ className, ...props }: SignUpFormProps) {
     onSuccess: (response) => {
       toast.success('帳號創建成功！')
 
-      // 導向到登入頁面
-      navigate({ to: '/sign-in' })
-    },
-    onError: (error: any) => {
-      console.error('註冊失敗:', error)
+      Cookie.set(CookieEnum.AccessToken, response.token.accessTokenJWT)
+      Cookie.set(CookieEnum.RefreshToken, response.token.refreshTokenJWT)
 
-      // 顯示具體錯誤訊息
-      const errorMessage = error?.response?.data?.message || error?.message || '註冊失敗，請稍後再試'
-      toast.error(errorMessage)
+      navigate({ to: '/' })
+    },
+    onError: (error) => {
+      console.error('註冊失敗:', error)
     },
   })
 
   const onSubmit = (data: z.infer<typeof formSchema>) => {
     const payload: RegisterPayload = {
-      name: data.email,
+      name: data.name,
       password: data.password,
     }
 
@@ -86,13 +85,13 @@ export function SignUpForm({ className, ...props }: SignUpFormProps) {
       >
         <FormField
           control={form.control}
-          name="email"
+          name="name"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Email</FormLabel>
+              <FormLabel>Name</FormLabel>
               <FormControl>
                 <Input
-                  placeholder="name@example.com"
+                  placeholder="Enter your name"
                   {...field}
                 />
               </FormControl>
