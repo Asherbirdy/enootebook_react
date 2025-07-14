@@ -1,13 +1,15 @@
-import { HTMLAttributes, useState } from 'react'
+import { HTMLAttributes } from 'react'
 import { z } from 'zod'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useNavigate } from '@tanstack/react-router'
+import { toast } from 'sonner'
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { PasswordInput } from '@/components/password-input'
-import { RegisterPayload } from '@/types'
+import { RegisterPayload, RegisterResponse } from '@/types'
 import { useMutation } from '@tanstack/react-query'
 import { useAuthApi } from '@/api'
 
@@ -35,6 +37,7 @@ const formSchema = z
   })
 
 export function SignUpForm({ className, ...props }: SignUpFormProps) {
+  const navigate = useNavigate()
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -44,28 +47,34 @@ export function SignUpForm({ className, ...props }: SignUpFormProps) {
       confirmPassword: '',
     },
   })
+
   const {
-    mutate: RegisterRequest,
-    isPending: RegisterPending,
-  } = useMutation<any, Error, RegisterPayload>({
-    mutationFn: (data) => useAuthApi.register(data),
+    mutate: registerRequest,
+    isPending: registerPending,
+  } = useMutation<RegisterResponse, Error, RegisterPayload>({
+    mutationFn: useAuthApi.register,
+    onSuccess: (response) => {
+      toast.success('帳號創建成功！')
+
+      // 導向到登入頁面
+      navigate({ to: '/sign-in' })
+    },
+    onError: (error: any) => {
+      console.error('註冊失敗:', error)
+
+      // 顯示具體錯誤訊息
+      const errorMessage = error?.response?.data?.message || error?.message || '註冊失敗，請稍後再試'
+      toast.error(errorMessage)
+    },
   })
 
   const onSubmit = (data: z.infer<typeof formSchema>) => {
-
-    const payload = {
+    const payload: RegisterPayload = {
       name: data.email,
       password: data.password,
     }
 
-    RegisterRequest(payload, {
-      onSuccess: () => {
-        console.log('success')
-      },
-      onError: () => {
-        console.log('error')
-      },
-    })
+    registerRequest(payload)
   }
 
   return (
@@ -125,9 +134,10 @@ export function SignUpForm({ className, ...props }: SignUpFormProps) {
         />
         <Button
           className="mt-2"
-          disabled={RegisterPending}
+          disabled={registerPending}
+          type="submit"
         >
-          Create Account
+          {registerPending ? '創建中...' : '創建帳號'}
         </Button>
       </form>
     </Form>
